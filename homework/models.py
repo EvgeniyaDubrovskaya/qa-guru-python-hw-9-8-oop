@@ -1,3 +1,7 @@
+from dataclasses import dataclass
+
+
+@dataclass
 class Product:
     """
     Класс продукта
@@ -7,21 +11,12 @@ class Product:
     description: str
     quantity: int
 
-    def __init__(self, name, price, description, quantity):
-        self.name = name
-        self.price = price
-        self.description = description
-        self.quantity = quantity
-
     def check_quantity(self, quantity) -> bool:
         """
         Верните True если количество продукта больше или равно запрашиваемому
             и False в обратном случае
         """
-        if self.quantity >= quantity:
-            return True
-        else:
-            return False
+        return self.quantity >= quantity
 
     def buy(self, quantity):
         """
@@ -88,6 +83,7 @@ class Cart:
         for product, count in self.products.items():
             if not product.check_quantity(count):
                 return ValueError
+            else:
+                product.buy(count)
 
-        for product, count in self.products.items():
-            product.buy(count)
+
